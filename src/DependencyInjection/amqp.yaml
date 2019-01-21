@@ -11,7 +11,6 @@ services:
   # Default transport level destination
   ServiceBus\Transport\Common\DeliveryDestination:
     class: ServiceBus\Transport\Amqp\AmqpTransportLevelDestination
-    factory: ['class: ServiceBus\Transport\Amqp\AmqpTransportLevelDestination', create]
     arguments:
       $exchange: '%service_bus.transport.amqp.default_destination_topic%'
       $routingKey: '%service_bus.transport.amqp.default_destination_key%'

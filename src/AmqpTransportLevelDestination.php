@@ -35,19 +35,8 @@ final class AmqpTransportLevelDestination implements DeliveryDestination
     /**
      * @param string      $exchange
      * @param string|null $routingKey
-     *
-     * @return self
      */
-    public static function create(string $exchange, ?string $routingKey): self
-    {
-        return new self($exchange, $routingKey);
-    }
-
-    /**
-     * @param string      $exchange
-     * @param string|null $routingKey
-     */
-    private function __construct(string $exchange, ?string $routingKey)
+    public function __construct(string $exchange, ?string $routingKey)
     {
         $this->exchange   = $exchange;
         $this->routingKey = $routingKey;
