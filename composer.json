@@ -25,10 +25,12 @@
   "require": {
     "php": ">=7.2",
     "php-service-bus/transport-common": "dev-master",
+    "symfony/config": "^v4.2",
     "php-service-bus/common": "dev-master",
     "phpinnacle/ridge": "^0.1"
   },
   "require-dev": {
+    "symfony/dependency-injection": "^v4.2",
     "phpunit/phpunit": "^7",
     "vimeo/psalm": "^3"
   },

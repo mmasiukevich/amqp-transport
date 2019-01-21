@@ -1,0 +1,12 @@
+services:
+  # RabbitMQ connection DSN
+  ServiceBus\Transport\Amqp\AmqpConnectionConfiguration:
+    arguments:
+      $connectionDSN: '%service_bus.transport.amqp.dsn%'
+
+  # RabbitMQ QoS settings
+  ServiceBus\Transport\Amqp\AmqpQoSConfiguration:
+    arguments:
+      $size: '%service_bus.transport.amqp.qos_size%'
+      $count: '%service_bus.transport.amqp.qos_count%'
+      $global: '%service_bus.transport.amqp.qos_global%'
