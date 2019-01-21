@@ -28,6 +28,16 @@ final class PhpInnacleTransportExtension extends Extension
     private $connectionDSN;
 
     /**
+     * @var string
+     */
+    private $defaultDestinationExchange;
+
+    /**
+     * @var string|null
+     */
+    private $defaultDestinationRoutingKey;
+
+    /**
      * @var int|null
      */
     private $qosSize;
@@ -43,17 +53,28 @@ final class PhpInnacleTransportExtension extends Extension
     private $qosGlobal;
 
     /**
-     * @param string    $connectionDSN
-     * @param int|null  $qosSize
-     * @param int|null  $qosCount
-     * @param bool|null $qosGlobal
+     * @param string      $connectionDSN
+     * @param string      $defaultDestinationExchange
+     * @param string|null $defaultDestinationRoutingKey
+     * @param int|null    $qosSize
+     * @param int|null    $qosCount
+     * @param bool|null   $qosGlobal
      */
-    public function __construct(string $connectionDSN, ?int $qosSize = null, ?int $qosCount = null, ?bool $qosGlobal = null)
+    public function __construct(
+        string $connectionDSN,
+        string $defaultDestinationExchange,
+        ?string $defaultDestinationRoutingKey = null,
+        ?int $qosSize = null,
+        ?int $qosCount = null,
+        ?bool $qosGlobal = null
+    )
     {
-        $this->connectionDSN = $connectionDSN;
-        $this->qosSize       = $qosSize;
-        $this->qosCount      = $qosCount;
-        $this->qosGlobal     = $qosGlobal;
+        $this->connectionDSN                = $connectionDSN;
+        $this->defaultDestinationExchange   = $defaultDestinationExchange;
+        $this->defaultDestinationRoutingKey = $defaultDestinationRoutingKey;
+        $this->qosSize                      = $qosSize;
+        $this->qosCount                     = $qosCount;
+        $this->qosGlobal                    = $qosGlobal;
     }
 
     /**
@@ -63,11 +84,11 @@ final class PhpInnacleTransportExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $this->injectParameters($container);
-
         $loader = new YamlFileLoader($container, new FileLocator());
         $loader->load(__DIR__ . '/amqp.yaml');
         $loader->load(__DIR__ . '/php-innacle.yaml');
+
+        $this->injectParameters($container);
     }
 
     /**
@@ -80,10 +101,12 @@ final class PhpInnacleTransportExtension extends Extension
     private function injectParameters(ContainerBuilder $container): void
     {
         $parameters = [
-            'service_bus.transport.amqp.dsn'        => $this->connectionDSN,
-            'service_bus.transport.amqp.qos_size'   => $this->qosSize,
-            'service_bus.transport.amqp.qos_count'  => $this->qosCount,
-            'service_bus.transport.amqp.qos_global' => $this->qosGlobal
+            'service_bus.transport.amqp.dsn'                       => $this->connectionDSN,
+            'service_bus.transport.amqp.qos_size'                  => $this->qosSize,
+            'service_bus.transport.amqp.qos_count'                 => $this->qosCount,
+            'service_bus.transport.amqp.qos_global'                => $this->qosGlobal,
+            'service_bus.transport.amqp.default_destination_topic' => $this->defaultDestinationExchange,
+            'service_bus.transport.amqp.default_destination_key'   => $this->defaultDestinationRoutingKey,
         ];
 
         foreach($parameters as $key => $value)
