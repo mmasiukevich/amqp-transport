@@ -1,6 +1,6 @@
 {
   "name": "php-service-bus/transport-amqp",
-  "description": "PHP Service Bus (publish-subscribe pattern) amqp transport implementation",
+  "description": "PHP Service Bus (publish-subscribe pattern) amqp transport common implementation",
   "type": "library",
   "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
   "authors": [
@@ -25,12 +25,9 @@
   "require": {
     "php": ">=7.2",
     "php-service-bus/transport-common": "dev-master",
-    "symfony/config": "^v4.2",
-    "php-service-bus/common": "dev-master",
-    "phpinnacle/ridge": "^0.1"
+    "php-service-bus/common": "dev-master"
   },
   "require-dev": {
-    "symfony/dependency-injection": "^v4.2",
     "phpunit/phpunit": "^7",
     "vimeo/psalm": "^3"
   },

@@ -1,9 +1,0 @@
-services:
-
-  # RabbitMQ transport implementation
-  ServiceBus\Transport\Common\Transport:
-    class: ServiceBus\Transport\Amqp\PhpInnacle\PhpInnacleTransport
-    arguments:
-      $connectionConfig: '@ServiceBus\Transport\Amqp\AmqpConnectionConfiguration'
-      $qosConfig: '@ServiceBus\Transport\Amqp\AmqpQoSConfiguration'
-      $logger: '@service_bus.logger'
