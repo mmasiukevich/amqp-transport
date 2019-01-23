@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "718514b56f0961a0c577065d77b6bc80",
+    "hash": "63e62f5d2cf8580309d9540c922cfa8d",
     "content-hash": "f9cdca1fa21e97ee3fb28464eefb2c6c",
     "packages": [
         {
@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/common.git",
-                "reference": "3ca8d0114fa356acbefe636cf7fc04bc54dd6fc5"
+                "reference": "21bc9ce34e11d4b8065826268d7f357993917fcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/common/zipball/3ca8d0114fa356acbefe636cf7fc04bc54dd6fc5",
-                "reference": "3ca8d0114fa356acbefe636cf7fc04bc54dd6fc5",
+                "url": "https://api.github.com/repos/php-service-bus/common/zipball/21bc9ce34e11d4b8065826268d7f357993917fcf",
+                "reference": "21bc9ce34e11d4b8065826268d7f357993917fcf",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "event-sourcing",
                 "messaging"
             ],
-            "time": "2019-01-22 11:11:48"
+            "time": "2019-01-23 07:25:30"
         },
         {
             "name": "php-service-bus/transport-common",
@@ -189,12 +189,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/transport-common.git",
-                "reference": "6f73ced30881d842bb81781f589363ee60e44db4"
+                "reference": "68946e0edc1da0111e6e4fad9ac656382573accc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/6f73ced30881d842bb81781f589363ee60e44db4",
-                "reference": "6f73ced30881d842bb81781f589363ee60e44db4",
+                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/68946e0edc1da0111e6e4fad9ac656382573accc",
+                "reference": "68946e0edc1da0111e6e4fad9ac656382573accc",
                 "shasum": ""
             },
             "require": {
@@ -223,7 +223,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "PHP Service Bus (publish-subscribe pattern) transport common parts",
+            "description": "PHP Service Bus transport common parts",
             "keywords": [
                 "async-php",
                 "command-bus",
@@ -231,7 +231,7 @@
                 "event-sourcing",
                 "messaging"
             ],
-            "time": "2019-01-21 11:01:04"
+            "time": "2019-01-23 14:44:11"
         },
         {
             "name": "ramsey/uuid",

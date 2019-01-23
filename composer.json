@@ -1,6 +1,6 @@
 {
   "name": "php-service-bus/transport-amqp",
-  "description": "PHP Service Bus (publish-subscribe pattern) amqp transport common implementation",
+  "description": "PHP Service Bus amqp common implementation",
   "type": "library",
   "keywords": ["cqrs", "event-sourcing", "async-php", "command-bus", "messaging"],
   "authors": [
@@ -19,7 +19,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "ServiceBus\\Transport\\Amqp\\Tests\\": "tests/"
+      "ServiceBus\\Transport\\Amqp\\Tests\\": "tests/",
+      "ServiceBus\\Common\\Tests\\": "vendor/php-service-bus/common/tests"
     }
   },
   "require": {

@@ -1,12 +1,13 @@
 <?php
 
 /**
- * PHP Service Bus (publish-subscribe pattern) amqp transport implementation
+ * PHP Service Bus amqp common implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
  * @license https://opensource.org/licenses/MIT
  */
+
 declare(strict_types = 1);
 
 namespace ServiceBus\Transport\Amqp\Tests;
