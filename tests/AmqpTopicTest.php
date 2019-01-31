@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP Service Bus amqp common implementation
+ * AMQP transport common implementation
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT

@@ -4,4 +4,4 @@
 
 ## What is it?
 
-Common components for implementing transport based on amqp protocol in [service-bus](https://github.com/php-service-bus/service-bus) framework
+Common interfaces for implementing the AMQP protocol
