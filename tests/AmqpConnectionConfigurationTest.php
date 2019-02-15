@@ -14,6 +14,7 @@ namespace ServiceBus\Transport\Amqp\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Transport\Amqp\AmqpConnectionConfiguration;
+use ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters;
 
 /**
  *
@@ -64,25 +65,31 @@ final class AmqpConnectionConfigurationTest extends TestCase
 
     /**
      * @test
-     * @expectedException  \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters
-     * @expectedExceptionMessage Can't parse specified connection DSN (///example.org:80)
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function failedQuery(): void
     {
+        $this->expectException(InvalidConnectionParameters::class);
+        $this->expectExceptionMessage('Can\'t parse specified connection DSN (///example.org:80)');
+
         new AmqpConnectionConfiguration('///example.org:80');
     }
 
     /**
      * @test
-     * @expectedException   \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters
-     * @expectedExceptionMessage Connection DSN can't be empty
      *
      * @return void
+     *
+     * @throws \Throwable
      */
     public function emptyDSN(): void
     {
+        $this->expectException(InvalidConnectionParameters::class);
+        $this->expectExceptionMessage('Connection DSN can\'t be empty');
+
         new AmqpConnectionConfiguration('');
     }
 }
