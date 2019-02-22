@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc8efb628ecb8519ad9c9832ca335aa6",
-    "content-hash": "fb3bc23436612584a38833195e853a13",
+    "hash": "41fa15163d8a4b47268d278d4b84e954",
+    "content-hash": "940c8e7bf652cc5e7381f6cf490cefb6",
     "packages": [
         {
             "name": "amphp/amp",
@@ -183,16 +183,16 @@
         },
         {
             "name": "php-service-bus/transport-common",
-            "version": "v3.0.x-dev",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/transport-common.git",
-                "reference": "caa5d28b0404b4b9a1f487c1f61672b882eedc46"
+                "reference": "89c2c7ef4316d1053cf8835e7b083203e7eb28d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/caa5d28b0404b4b9a1f487c1f61672b882eedc46",
-                "reference": "caa5d28b0404b4b9a1f487c1f61672b882eedc46",
+                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/89c2c7ef4316d1053cf8835e7b083203e7eb28d2",
+                "reference": "89c2c7ef4316d1053cf8835e7b083203e7eb28d2",
                 "shasum": ""
             },
             "require": {
@@ -227,7 +227,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-22 10:36:50"
+            "time": "2019-02-22 10:49:49"
         },
         {
             "name": "ramsey/uuid",
@@ -2644,9 +2644,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "php-service-bus/transport-common": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
