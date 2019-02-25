@@ -14,12 +14,43 @@ namespace ServiceBus\Transport\Amqp\Tests;
 
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Transport\Amqp\AmqpExchange;
+use ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName;
 
 /**
  *
  */
 final class AmqpTopicTest extends TestCase
 {
+    /**
+     * @test
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function createWithEmptyName(): void
+    {
+        $this->expectException(InvalidExchangeName::class);
+        $this->expectExceptionMessage('Exchange name must be specified');
+
+        AmqpExchange::fanout('');
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function createWithToLongName(): void
+    {
+        $this->expectException(InvalidExchangeName::class);
+        $this->expectExceptionMessage('Exchange name may be up to 255 bytes of UTF-8 characters (260 specified)');
+
+        AmqpExchange::fanout(\str_repeat('x', 260));
+    }
+
     /**
      * @test
      *

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "38400d2455d1ca211494afbc23f5eb13",
-    "content-hash": "1e74d61a1fd195b44634df61cb408939",
+    "hash": "3cbd07c77fdf15c480e7790bfca05720",
+    "content-hash": "df2106e7f42acfb0560204ca089536b4",
     "packages": [
         {
             "name": "amphp/amp",
@@ -183,16 +183,16 @@
         },
         {
             "name": "php-service-bus/transport-common",
-            "version": "v3.0.5",
+            "version": "v3.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/transport-common.git",
-                "reference": "89c2c7ef4316d1053cf8835e7b083203e7eb28d2"
+                "reference": "14948df6f4fbd40591712766e839ff33d08d52ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/89c2c7ef4316d1053cf8835e7b083203e7eb28d2",
-                "reference": "89c2c7ef4316d1053cf8835e7b083203e7eb28d2",
+                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/14948df6f4fbd40591712766e839ff33d08d52ef",
+                "reference": "14948df6f4fbd40591712766e839ff33d08d52ef",
                 "shasum": ""
             },
             "require": {
@@ -227,7 +227,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-22 10:49:49"
+            "time": "2019-02-25 15:04:12"
         },
         {
             "name": "ramsey/uuid",
@@ -2645,12 +2645,14 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "php-service-bus/transport-common": 20,
         "php-service-bus/common": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "ext-mbstring": "*"
     },
     "platform-dev": []
 }

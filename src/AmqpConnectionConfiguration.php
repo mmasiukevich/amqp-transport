@@ -195,7 +195,7 @@ final class AmqpConnectionConfiguration
     {
         if('' === $url)
         {
-            throw new InvalidConnectionParameters('Connection DSN can\'t be empty');
+            throw InvalidConnectionParameters::emptyDSN();
         }
 
         $parsedParts = \parse_url($url);
@@ -205,9 +205,7 @@ final class AmqpConnectionConfiguration
             return $parsedParts;
         }
 
-        throw new InvalidConnectionParameters(
-            \sprintf('Can\'t parse specified connection DSN (%s)', $url)
-        );
+        throw InvalidConnectionParameters::incorrectDSN($url);
     }
 
     /**

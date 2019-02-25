@@ -15,12 +15,43 @@ namespace ServiceBus\Transport\Amqp\Tests;
 use PHPUnit\Framework\TestCase;
 use ServiceBus\Transport\Amqp\AmqpExchange;
 use ServiceBus\Transport\Amqp\AmqpQueue;
+use ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName;
 
 /**
  *
  */
 final class AmqpQueueTest extends TestCase
 {
+    /**
+     * @test
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function createWithEmptyName(): void
+    {
+        $this->expectException(InvalidQueueName::class);
+        $this->expectExceptionMessage('Queue name must be specified');
+
+        AmqpQueue::default('');
+    }
+
+    /**
+     * @test
+     *
+     * @return void
+     *
+     * @throws \Throwable
+     */
+    public function createWithToLongName(): void
+    {
+        $this->expectException(InvalidQueueName::class);
+        $this->expectExceptionMessage('Queue name may be up to 255 bytes of UTF-8 characters (260 specified)');
+
+        AmqpQueue::default(\str_repeat('x', 260));
+    }
+
     /**
      * @test
      *

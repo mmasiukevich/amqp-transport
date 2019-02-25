@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Transport\Amqp;
 
+use ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName;
 use ServiceBus\Transport\Common\Queue;
 
 /**
@@ -23,6 +24,8 @@ final class AmqpQueue implements Queue
     private const AMQP_PASSIVE     = 4;
     private const AMQP_EXCLUSIVE   = 8;
     private const AMQP_AUTO_DELETE = 16;
+
+    private const MAX_NAME_SYMBOLS = 255;
 
     /**
      * The queue name MAY be empty, in which case the server MUST create a new queue with a unique generated name and
@@ -105,22 +108,10 @@ final class AmqpQueue implements Queue
     /**
      * @param string $name
      * @param bool   $durable
-     */
-    public function __construct(string $name, bool $durable = false)
-    {
-        $this->name = $name;
-
-        if(true === $durable)
-        {
-            $this->makeDurable();
-        }
-    }
-
-    /**
-     * @param string $name
-     * @param bool   $durable
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
      */
     public static function default(string $name, bool $durable = false): self
     {
@@ -136,6 +127,8 @@ final class AmqpQueue implements Queue
      * @param AmqpExchange $toExchange
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
      */
     public static function delayed(string $name, AmqpExchange $toExchange): self
     {
@@ -270,5 +263,31 @@ final class AmqpQueue implements Queue
     public function arguments(): array
     {
         return $this->arguments;
+    }
+
+    /**
+     * @param string $name
+     * @param bool   $durable
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
+     */
+    private function __construct(string $name, bool $durable = false)
+    {
+        if('' === $name)
+        {
+            throw InvalidQueueName::nameCantBeEmpty();
+        }
+
+        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        {
+            throw InvalidQueueName::nameIsToLong($name);
+        }
+
+        $this->name = $name;
+
+        if(true === $durable)
+        {
+            $this->makeDurable();
+        }
     }
 }

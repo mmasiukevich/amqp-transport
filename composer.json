@@ -31,7 +31,8 @@
   },
   "require": {
     "php": ">=7.2",
-    "php-service-bus/transport-common": "^v3.0",
+    "ext-mbstring": "*",
+    "php-service-bus/transport-common": "v3.0.x-dev",
     "php-service-bus/common": "v3.0.x-dev"
   },
   "require-dev": {

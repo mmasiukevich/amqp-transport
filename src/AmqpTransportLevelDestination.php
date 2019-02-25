@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Transport\Amqp;
 
+use ServiceBus\Transport\Amqp\Exceptions\IncorrectDestinationExchange;
 use ServiceBus\Transport\Common\DeliveryDestination;
 
 /**
@@ -35,9 +36,16 @@ final class AmqpTransportLevelDestination implements DeliveryDestination
     /**
      * @param string      $exchange
      * @param string|null $routingKey
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\IncorrectDestinationExchange
      */
-    public function __construct(string $exchange, ?string $routingKey)
+    public function __construct(string $exchange, ?string $routingKey = null)
     {
+        if('' === $exchange)
+        {
+            throw IncorrectDestinationExchange::destinationExchangeCantBeEmpty();
+        }
+
         $this->exchange   = $exchange;
         $this->routingKey = $routingKey;
     }

@@ -12,6 +12,7 @@ declare(strict_types = 1);
 
 namespace ServiceBus\Transport\Amqp;
 
+use ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName;
 use ServiceBus\Transport\Common\Topic;
 
 /**
@@ -28,6 +29,8 @@ final class AmqpExchange implements Topic
 
     /** Plugin rabbitmq_delayed_message_exchange */
     private const TYPE_DELAYED = 'x-delayed-message';
+
+    private const MAX_NAME_SYMBOLS = 255;
 
     /**
      * The exchange name consists of a non-empty sequence of these characters: letters, digits, hyphen, underscore,
@@ -91,6 +94,8 @@ final class AmqpExchange implements Topic
      * @param bool   $durable
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
     public static function fanout(string $name, bool $durable = false): self
     {
@@ -102,6 +107,8 @@ final class AmqpExchange implements Topic
      * @param bool   $durable
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
     public static function direct(string $name, bool $durable = false): self
     {
@@ -113,6 +120,8 @@ final class AmqpExchange implements Topic
      * @param bool   $durable
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
     public static function topic(string $name, bool $durable = false): self
     {
@@ -123,6 +132,8 @@ final class AmqpExchange implements Topic
      * @param string $name
      *
      * @return self
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
     public static function delayed(string $name): self
     {
@@ -225,9 +236,21 @@ final class AmqpExchange implements Topic
      * @param string $name
      * @param string $type
      * @param bool   $durable
+     *
+     * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
     private function __construct(string $name, string $type, bool $durable)
     {
+        if('' === $name)
+        {
+            throw InvalidExchangeName::nameCantBeEmpty();
+        }
+
+        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        {
+            throw InvalidExchangeName::nameIsToLong($name);
+        }
+
         $this->name = $name;
         $this->type = $type;
 

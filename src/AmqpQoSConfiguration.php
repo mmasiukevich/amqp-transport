@@ -70,8 +70,11 @@ final class AmqpQoSConfiguration
      */
     public function __construct(?int $size = null, ?int $count = null, ?bool $global = null)
     {
-        $this->size   = $size ?? self::DEFAULT_QOS_PRE_FETCH_SIZE;
-        $this->count  = $count ?? self::DEFAULT_QOS_PRE_FETCH_COUNT;
+        $size  = $size ?? self::DEFAULT_QOS_PRE_FETCH_SIZE;
+        $count = $count ?? self::DEFAULT_QOS_PRE_FETCH_COUNT;
+
+        $this->size   = 0 > $size ? self::DEFAULT_QOS_PRE_FETCH_SIZE : $size;
+        $this->count  = 0 > $count ? self::DEFAULT_QOS_PRE_FETCH_COUNT : $count;
         $this->global = $global ?? self::DEFAULT_QOS_GLOBAL;
     }
 }
