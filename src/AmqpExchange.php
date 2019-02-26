@@ -78,6 +78,7 @@ final class AmqpExchange implements Topic
     /**
      * @see https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
+     * @psalm-var array<array-key, string|int|float>
      * @var array
      */
     private $arguments = [];
@@ -203,6 +204,7 @@ final class AmqpExchange implements Topic
      */
     public function wthArguments(array $arguments): self
     {
+        /** @psalm-suppress MixedTypeCoercion */
         $this->arguments = \array_merge($this->arguments, $arguments);
 
         return $this;

@@ -33,7 +33,7 @@ final class AmqpConnectionConfiguration
      *
      * Created from array with keys:
      *
-     * @var array{
+     * @psalm-var array{
      *    scheme:string,
      *    user:string,
      *    password:string,
@@ -43,6 +43,8 @@ final class AmqpConnectionConfiguration
      *    timeout:float,
      *    heartbeat:float
      * }
+     *
+     * @var array
      */
     private $data;
 
@@ -158,8 +160,17 @@ final class AmqpConnectionConfiguration
     /**
      * @param string $connectionDSN
      *
-     * @return array{scheme:string, user:string, password:string, host:string, port:int, vhost:string, timeout:float,
-     *                              heartbeat:float}
+     * @psalm-return array{
+     *   scheme:string,
+     *   user:string,
+     *   password:string,
+     *   host:string,
+     *   port:int,
+     *   vhost:string,
+     *   timeout:float,
+     *   heartbeat:float
+     * }
+     * @return array
      *
      * @throws \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters Incorrect DSN
      */
@@ -213,7 +224,8 @@ final class AmqpConnectionConfiguration
      *
      * @param string $query
      *
-     * @return array<string, string|int|float>
+     * @psalm-return array<string, string|int|float>
+     * @return array
      */
     private static function parseQuery(string $query): array
     {
@@ -221,7 +233,7 @@ final class AmqpConnectionConfiguration
 
         \parse_str($query, $output);
 
-        /** @var array<string, string|int|float> $output */
+        /** @psalm-var array<string, string|int|float> $output */
 
         return $output;
     }
