@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -15,21 +15,28 @@ namespace ServiceBus\Transport\Amqp;
 use ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters;
 
 /**
- * Amqp connection details
+ * Amqp connection details.
  */
 final class AmqpConnectionConfiguration
 {
     private const DEFAULT_SCHEMA             = 'amqp';
+
     private const DEFAULT_HOST               = 'localhost';
+
     private const DEFAULT_PORT               = 5672;
+
     private const DEFAULT_USERNAME           = 'guest';
+
     private const DEFAULT_PASSWORD           = 'guest';
+
     private const DEFAULT_TIMEOUT            = 1;
+
     private const DEFAULT_HEARTBEAT_INTERVAL = 60.0;
+
     private const DEFAULT_VIRTUAL_HOST       = '/';
 
     /**
-     * Connection DSN parameters bag
+     * Connection DSN parameters bag.
      *
      * Created from array with keys:
      *
@@ -88,7 +95,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive connection timeout
+     * Receive connection timeout.
      *
      * @return float
      */
@@ -98,7 +105,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive heartbeat interval
+     * Receive heartbeat interval.
      *
      * @return float
      */
@@ -108,7 +115,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Get virtual host path
+     * Get virtual host path.
      *
      * @return string
      */
@@ -118,7 +125,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive connection username
+     * Receive connection username.
      *
      * @return string
      */
@@ -128,7 +135,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive connection password
+     * Receive connection password.
      *
      * @return string
      */
@@ -138,7 +145,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive connection host
+     * Receive connection host.
      *
      * @return string
      */
@@ -148,7 +155,7 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Receive connection port
+     * Receive connection port.
      *
      * @return int
      */
@@ -170,9 +177,10 @@ final class AmqpConnectionConfiguration
      *   timeout:float,
      *   heartbeat:float
      * }
-     * @return array
      *
      * @throws \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters Incorrect DSN
+     *
+     * @return array
      */
     private static function extractConnectionParameters(string $connectionDSN): array
     {
@@ -194,24 +202,24 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Parse connection DSN parts
+     * Parse connection DSN parts.
      *
      * @param string $url
      *
-     * @return array
-     *
      * @throws \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters Incorrect DSN
+     *
+     * @return array
      */
     private static function parseUrl(string $url): array
     {
-        if('' === $url)
+        if ('' === $url)
         {
             throw InvalidConnectionParameters::emptyDSN();
         }
 
         $parsedParts = \parse_url($url);
 
-        if(false !== $parsedParts)
+        if (false !== $parsedParts)
         {
             return $parsedParts;
         }
@@ -220,11 +228,12 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * Parse url query parts
+     * Parse url query parts.
      *
      * @param string $query
      *
      * @psalm-return array<string, string|int|float>
+     *
      * @return array
      */
     private static function parseQuery(string $query): array

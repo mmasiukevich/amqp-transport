@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -13,7 +13,7 @@ declare(strict_types = 1);
 namespace ServiceBus\Transport\Amqp;
 
 /**
- * Quality Of Service settings
+ * Quality Of Service settings.
  *
  * @property-read int  $size
  * @property-read int  $count
@@ -22,7 +22,9 @@ namespace ServiceBus\Transport\Amqp;
 final class AmqpQoSConfiguration
 {
     private const DEFAULT_QOS_PRE_FETCH_SIZE  = 0;
+
     private const DEFAULT_QOS_PRE_FETCH_COUNT = 100;
+
     private const DEFAULT_QOS_GLOBAL          = false;
 
     /**

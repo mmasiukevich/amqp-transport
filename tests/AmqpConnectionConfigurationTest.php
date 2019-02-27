@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -24,51 +24,51 @@ final class AmqpConnectionConfigurationTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function createLocalhost(): void
     {
         $options = AmqpConnectionConfiguration::createLocalhost();
 
-        static::assertEquals(
+        static::assertSame(
             'amqp://guest:guest@localhost:5672?vhost=/&timeout=1&heartbeat=60.00',
             (string) $options
         );
 
-        static::assertEquals('localhost', $options->host());
-        static::assertEquals(5672, $options->port());
-        static::assertEquals('/', $options->virtualHost());
-        static::assertEquals('guest', $options->password());
-        static::assertEquals('guest', $options->user());
-        static::assertEquals(1.0, $options->timeout());
-        static::assertEquals(60.0, $options->heartbeatInterval());
+        static::assertSame('localhost', $options->host());
+        static::assertSame(5672, $options->port());
+        static::assertSame('/', $options->virtualHost());
+        static::assertSame('guest', $options->password());
+        static::assertSame('guest', $options->user());
+        static::assertSame(1.0, $options->timeout());
+        static::assertSame(60.0, $options->heartbeatInterval());
     }
 
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function parseDSN(): void
     {
-        static::assertEquals(
-            AmqpConnectionConfiguration::createLocalhost(),
-            new AmqpConnectionConfiguration(
+        static::assertSame(
+            AmqpConnectionConfiguration::createLocalhost()->heartbeatInterval(),
+            (new AmqpConnectionConfiguration(
                 'amqp://guest:guest@localhost:5672?vhost=/&timeout=1&heartbeat=60.00'
-            )
+            ))->heartbeatInterval()
         );
     }
 
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function failedQuery(): void
     {
@@ -81,9 +81,9 @@ final class AmqpConnectionConfigurationTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function emptyDSN(): void
     {

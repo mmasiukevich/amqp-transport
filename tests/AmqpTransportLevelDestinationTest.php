@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -24,9 +24,9 @@ final class AmqpTransportLevelDestinationTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function withEmptyExchangeName(): void
     {
@@ -39,9 +39,9 @@ final class AmqpTransportLevelDestinationTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function successCreate(): void
     {

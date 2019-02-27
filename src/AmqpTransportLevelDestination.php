@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -16,7 +16,7 @@ use ServiceBus\Transport\Amqp\Exceptions\IncorrectDestinationExchange;
 use ServiceBus\Transport\Common\DeliveryDestination;
 
 /**
- * Which exchange (and with which key) the message will be sent to
+ * Which exchange (and with which key) the message will be sent to.
  *
  * @property-read string      $exchange
  * @property-read string|null $routingKey
@@ -41,7 +41,7 @@ final class AmqpTransportLevelDestination implements DeliveryDestination
      */
     public function __construct(string $exchange, ?string $routingKey = null)
     {
-        if('' === $exchange)
+        if ('' === $exchange)
         {
             throw IncorrectDestinationExchange::destinationExchangeCantBeEmpty();
         }

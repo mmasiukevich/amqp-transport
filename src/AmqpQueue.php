@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -16,13 +16,16 @@ use ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName;
 use ServiceBus\Transport\Common\Queue;
 
 /**
- * Queue details
+ * Queue details.
  */
 final class AmqpQueue implements Queue
 {
     private const AMQP_DURABLE     = 2;
+
     private const AMQP_PASSIVE     = 4;
+
     private const AMQP_EXCLUSIVE   = 8;
+
     private const AMQP_AUTO_DELETE = 16;
 
     private const MAX_NAME_SYMBOLS = 255;
@@ -99,7 +102,7 @@ final class AmqpQueue implements Queue
     private $arguments = [];
 
     /**
-     * Queue flags
+     * Queue flags.
      *
      * @var int
      */
@@ -109,9 +112,9 @@ final class AmqpQueue implements Queue
      * @param string $name
      * @param bool   $durable
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
+     *
+     * @return self
      */
     public static function default(string $name, bool $durable = false): self
     {
@@ -119,16 +122,16 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * Create delayed queue
+     * Create delayed queue.
      *
      * @see https://github.com/rabbitmq/rabbitmq-delayed-message-exchange
      *
      * @param string       $name
      * @param AmqpExchange $toExchange
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
+     *
+     * @return self
      */
     public static function delayed(string $name, AmqpExchange $toExchange): self
     {
@@ -152,7 +155,7 @@ final class AmqpQueue implements Queue
      */
     public function makePassive(): self
     {
-        if(false === $this->isPassive())
+        if (false === $this->isPassive())
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -174,7 +177,7 @@ final class AmqpQueue implements Queue
      */
     public function makeExclusive(): self
     {
-        if(false === $this->isExclusive())
+        if (false === $this->isExclusive())
         {
             $this->exclusive = true;
             $this->flags     += self::AMQP_EXCLUSIVE;
@@ -196,7 +199,7 @@ final class AmqpQueue implements Queue
      */
     public function makeDurable(): self
     {
-        if(false === $this->isDurable())
+        if (false === $this->isDurable())
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -218,7 +221,7 @@ final class AmqpQueue implements Queue
      */
     public function enableAutoDelete(): self
     {
-        if(false === $this->autoDeleteEnabled())
+        if (false === $this->autoDeleteEnabled())
         {
             $this->autoDelete = true;
             $this->flags      += self::AMQP_AUTO_DELETE;
@@ -248,7 +251,7 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * Receive queue flags
+     * Receive queue flags.
      *
      * @return int
      */
@@ -273,19 +276,19 @@ final class AmqpQueue implements Queue
      */
     private function __construct(string $name, bool $durable = false)
     {
-        if('' === $name)
+        if ('' === $name)
         {
             throw InvalidQueueName::nameCantBeEmpty();
         }
 
-        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidQueueName::nameIsToLong($name);
         }
 
         $this->name = $name;
 
-        if(true === $durable)
+        if (true === $durable)
         {
             $this->makeDurable();
         }

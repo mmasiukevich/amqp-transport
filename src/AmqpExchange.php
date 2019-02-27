@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -16,15 +16,18 @@ use ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName;
 use ServiceBus\Transport\Common\Topic;
 
 /**
- * Exchange details
+ * Exchange details.
  */
 final class AmqpExchange implements Topic
 {
     private const TYPE_FANOUT = 'fanout';
+
     private const TYPE_DIRECT = 'direct';
+
     private const TYPE_TOPIC  = 'topic';
 
     private const AMQP_DURABLE = 2;
+
     private const AMQP_PASSIVE = 4;
 
     /** Plugin rabbitmq_delayed_message_exchange */
@@ -34,14 +37,14 @@ final class AmqpExchange implements Topic
 
     /**
      * The exchange name consists of a non-empty sequence of these characters: letters, digits, hyphen, underscore,
-     * period, or colon
+     * period, or colon.
      *
      * @var string
      */
     private $name;
 
     /**
-     * Exchange type
+     * Exchange type.
      *
      * - fanout
      * - direct
@@ -79,12 +82,13 @@ final class AmqpExchange implements Topic
      * @see https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
      * @psalm-var array<array-key, string|int|float>
+     *
      * @var array
      */
     private $arguments = [];
 
     /**
-     * Exchange flags
+     * Exchange flags.
      *
      * @var int
      */
@@ -94,9 +98,9 @@ final class AmqpExchange implements Topic
      * @param string $name
      * @param bool   $durable
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
+     *
+     * @return self
      */
     public static function fanout(string $name, bool $durable = false): self
     {
@@ -107,9 +111,9 @@ final class AmqpExchange implements Topic
      * @param string $name
      * @param bool   $durable
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
+     *
+     * @return self
      */
     public static function direct(string $name, bool $durable = false): self
     {
@@ -120,9 +124,9 @@ final class AmqpExchange implements Topic
      * @param string $name
      * @param bool   $durable
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
+     *
+     * @return self
      */
     public static function topic(string $name, bool $durable = false): self
     {
@@ -132,9 +136,9 @@ final class AmqpExchange implements Topic
     /**
      * @param string $name
      *
-     * @return self
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
+     *
+     * @return self
      */
     public static function delayed(string $name): self
     {
@@ -158,7 +162,7 @@ final class AmqpExchange implements Topic
      */
     public function makePassive(): self
     {
-        if(false === $this->isPassive())
+        if (false === $this->isPassive())
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -180,7 +184,7 @@ final class AmqpExchange implements Topic
      */
     public function makeDurable(): self
     {
-        if(false === $this->isDurable())
+        if (false === $this->isDurable())
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -243,12 +247,12 @@ final class AmqpExchange implements Topic
      */
     private function __construct(string $name, string $type, bool $durable)
     {
-        if('' === $name)
+        if ('' === $name)
         {
             throw InvalidExchangeName::nameCantBeEmpty();
         }
 
-        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidExchangeName::nameIsToLong($name);
         }
@@ -256,7 +260,7 @@ final class AmqpExchange implements Topic
         $this->name = $name;
         $this->type = $type;
 
-        if(true === $durable)
+        if (true === $durable)
         {
             $this->makeDurable();
         }

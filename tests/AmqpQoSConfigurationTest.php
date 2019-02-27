@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AMQP transport common implementation
+ * AMQP transport common implementation.
  *
  * @author  Maksim Masiukevich <dev@async-php.com>
  * @license MIT
@@ -23,16 +23,16 @@ final class AmqpQoSConfigurationTest extends TestCase
     /**
      * @test
      *
-     * @return void
-     *
      * @throws \Throwable
+     *
+     * @return void
      */
     public function successCreate(): void
     {
         $qos = new AmqpQoSConfiguration(1, 6, true);
 
-        static::assertEquals(1, $qos->size);
-        static::assertEquals(6, $qos->count);
+        static::assertSame(1, $qos->size);
+        static::assertSame(6, $qos->count);
         static::assertTrue($qos->global);
     }
 }
