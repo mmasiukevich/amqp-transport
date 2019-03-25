@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d29b5cb39bfa9af5f40e828ae2166c17",
+    "content-hash": "727fbb8997407ea27589201d11de570c",
     "packages": [
         {
             "name": "amphp/amp",
@@ -183,16 +183,16 @@
         },
         {
             "name": "php-service-bus/transport-common",
-            "version": "v3.2.x-dev",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-service-bus/transport-common.git",
-                "reference": "5fc80c70caf4508c3544a72600271931825f6c42"
+                "reference": "501db683f8a82d34b80bb3b26c28b9686c04e8e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/5fc80c70caf4508c3544a72600271931825f6c42",
-                "reference": "5fc80c70caf4508c3544a72600271931825f6c42",
+                "url": "https://api.github.com/repos/php-service-bus/transport-common/zipball/501db683f8a82d34b80bb3b26c28b9686c04e8e7",
+                "reference": "501db683f8a82d34b80bb3b26c28b9686c04e8e7",
                 "shasum": ""
             },
             "require": {
@@ -228,7 +228,7 @@
                 "command-bus",
                 "messaging"
             ],
-            "time": "2019-02-27T10:04:09+00:00"
+            "time": "2019-03-25T14:20:20+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3450,10 +3450,8 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "php-service-bus/transport-common": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
