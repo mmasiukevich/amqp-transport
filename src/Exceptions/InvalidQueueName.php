@@ -33,7 +33,7 @@ final class InvalidQueueName extends \InvalidArgumentException
     public static function nameIsToLong(string $name): self
     {
         return new self(
-            \sprintf('Queue name may be up to 255 bytes of UTF-8 characters (%d specified)', \mb_strlen($name))
+            \sprintf('Queue name may be up to 255 bytes of UTF-8 characters (%d specified)', (string) \mb_strlen($name))
         );
     }
 }
