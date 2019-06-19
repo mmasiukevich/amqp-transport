@@ -152,7 +152,6 @@ final class AmqpExchange implements Topic
         return new self($name, self::TYPE_DELAYED, true, ['x-delayed-type' => self::TYPE_DIRECT]);
     }
 
-
     /**
      * @return string
      */
@@ -166,7 +165,7 @@ final class AmqpExchange implements Topic
      */
     public function makePassive(): self
     {
-        if(false === $this->passive)
+        if (false === $this->passive)
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -180,7 +179,7 @@ final class AmqpExchange implements Topic
      */
     public function makeDurable(): self
     {
-        if(false === $this->durable)
+        if (false === $this->durable)
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -263,6 +262,8 @@ final class AmqpExchange implements Topic
     }
 
     /**
+     * @psalm-param array<array-key, string|int|float> $arguments
+     *
      * @param string $name
      * @param string $type
      * @param bool   $durable
@@ -272,12 +273,12 @@ final class AmqpExchange implements Topic
      */
     private function __construct(string $name, string $type, bool $durable, array $arguments = [])
     {
-        if('' === $name)
+        if ('' === $name)
         {
             throw InvalidExchangeName::nameCantBeEmpty();
         }
 
-        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidExchangeName::nameIsToLong($name);
         }
@@ -286,7 +287,7 @@ final class AmqpExchange implements Topic
         $this->name      = $name;
         $this->type      = $type;
 
-        if(true === $durable)
+        if (true === $durable)
         {
             $this->makeDurable();
         }

@@ -151,7 +151,7 @@ final class AmqpQueue implements Queue
      */
     public function makePassive(): self
     {
-        if(false === $this->passive)
+        if (false === $this->passive)
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -165,7 +165,7 @@ final class AmqpQueue implements Queue
      */
     public function makeExclusive(): self
     {
-        if(false === $this->exclusive)
+        if (false === $this->exclusive)
         {
             $this->exclusive = true;
             $this->flags     += self::AMQP_EXCLUSIVE;
@@ -179,7 +179,7 @@ final class AmqpQueue implements Queue
      */
     public function makeDurable(): self
     {
-        if(false === $this->durable)
+        if (false === $this->durable)
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -193,7 +193,7 @@ final class AmqpQueue implements Queue
      */
     public function enableAutoDelete(): self
     {
-        if(false === $this->autoDelete)
+        if (false === $this->autoDelete)
         {
             $this->autoDelete = true;
             $this->flags      += self::AMQP_AUTO_DELETE;
@@ -201,7 +201,6 @@ final class AmqpQueue implements Queue
 
         return $this;
     }
-
 
     /**
      * @param array $arguments
@@ -302,12 +301,12 @@ final class AmqpQueue implements Queue
      */
     private function __construct(string $name, bool $durable = false, array $arguments = [])
     {
-        if('' === $name)
+        if ('' === $name)
         {
             throw InvalidQueueName::nameCantBeEmpty();
         }
 
-        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidQueueName::nameIsToLong($name);
         }
@@ -315,7 +314,7 @@ final class AmqpQueue implements Queue
         $this->arguments = $arguments;
         $this->name      = $name;
 
-        if(true === $durable)
+        if (true === $durable)
         {
             $this->makeDurable();
         }
