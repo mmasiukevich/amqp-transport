@@ -62,7 +62,7 @@ final class AmqpTopicTest extends TestCase
     {
         $exchange = AmqpExchange::fanout('fanoutName');
 
-        static::assertSame('fanout', $exchange->type());
+        static::assertSame('fanout', $exchange->type);
         static::assertSame('fanoutName', (string) $exchange);
     }
 
@@ -77,7 +77,7 @@ final class AmqpTopicTest extends TestCase
     {
         $exchange = AmqpExchange::direct('directName');
 
-        static::assertSame('direct', $exchange->type());
+        static::assertSame('direct', $exchange->type);
         static::assertSame('directName', (string) $exchange);
     }
 
@@ -92,7 +92,7 @@ final class AmqpTopicTest extends TestCase
     {
         $exchange = AmqpExchange::topic('topicName');
 
-        static::assertSame('topic', $exchange->type());
+        static::assertSame('topic', $exchange->type);
         static::assertSame('topicName', (string) $exchange);
     }
 
@@ -107,10 +107,10 @@ final class AmqpTopicTest extends TestCase
     {
         $exchange = AmqpExchange::delayed('delayedName');
 
-        static::assertSame('x-delayed-message', $exchange->type());
+        static::assertSame('x-delayed-message', $exchange->type);
         static::assertSame('delayedName', (string) $exchange);
 
-        static::assertSame(['x-delayed-type' => 'direct'], $exchange->arguments());
+        static::assertSame(['x-delayed-type' => 'direct'], $exchange->arguments);
     }
 
     /**
@@ -125,13 +125,13 @@ final class AmqpTopicTest extends TestCase
         $exchange = AmqpExchange::direct('directName', true);
 
         /** @see AmqpExchange::AMQP_DURABLE */
-        static::assertSame(2, $exchange->flags());
+        static::assertSame(2, $exchange->flags);
 
         /** @see AmqpExchange::AMQP_PASSIVE */
         $exchange->makePassive();
-        static::assertSame(6, $exchange->flags());
+        static::assertSame(6, $exchange->flags);
 
         $exchange->wthArguments(['key' => 'value']);
-        static::assertSame(['key' => 'value'], $exchange->arguments());
+        static::assertSame(['key' => 'value'], $exchange->arguments);
     }
 }

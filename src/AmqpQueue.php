@@ -17,14 +17,22 @@ use ServiceBus\Transport\Common\Queue;
 
 /**
  * Queue details.
+ *
+ * @property-read string $name
+ * @property-read bool   $passive
+ * @property-read bool   $durable
+ * @property-read bool   $exclusive
+ * @property-read bool   $autoDelete
+ * @property-read array  $arguments
+ * @property-read int    $flags
  */
 final class AmqpQueue implements Queue
 {
-    private const AMQP_DURABLE     = 2;
+    private const AMQP_DURABLE = 2;
 
-    private const AMQP_PASSIVE     = 4;
+    private const AMQP_PASSIVE = 4;
 
-    private const AMQP_EXCLUSIVE   = 8;
+    private const AMQP_EXCLUSIVE = 8;
 
     private const AMQP_AUTO_DELETE = 16;
 
@@ -39,7 +47,7 @@ final class AmqpQueue implements Queue
      *
      * @var string
      */
-    private $name;
+    public $name;
 
     /**
      * If set, the server will reply with Declare-Ok if the queue already exists with the same name, and raise an
@@ -56,7 +64,7 @@ final class AmqpQueue implements Queue
      *
      * @var bool
      */
-    private $passive = false;
+    public $passive = false;
 
     /**
      * If set when creating a new queue, the queue will be marked as durable. Durable queues remain active when a
@@ -69,7 +77,7 @@ final class AmqpQueue implements Queue
      *
      * @var bool
      */
-    private $durable = false;
+    public $durable = false;
 
     /**
      * Exclusive queues may only be accessed by the current connection, and are deleted when that connection closes.
@@ -81,7 +89,7 @@ final class AmqpQueue implements Queue
      *
      * @var bool
      */
-    private $exclusive = false;
+    public $exclusive = false;
 
     /**
      * If set, the queue is deleted when all consumers have finished using it. The last consumer can be cancelled
@@ -92,21 +100,21 @@ final class AmqpQueue implements Queue
      *
      * @var bool
      */
-    private $autoDelete = false;
+    public $autoDelete = false;
 
     /**
      * @see http://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
      * @var array
      */
-    private $arguments = [];
+    public $arguments = [];
 
     /**
      * Queue flags.
      *
      * @var int
      */
-    private $flags = 0;
+    public $flags = 0;
 
     /**
      * @param string $name
@@ -135,19 +143,7 @@ final class AmqpQueue implements Queue
      */
     public static function delayed(string $name, AmqpExchange $toExchange): self
     {
-        $self = new self($name, true);
-
-        $self->arguments['x-dead-letter-exchange'] = (string) $toExchange;
-
-        return $self;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->name;
+        return new self($name, true, ['x-dead-letter-exchange' => $toExchange->name]);
     }
 
     /**
@@ -155,7 +151,7 @@ final class AmqpQueue implements Queue
      */
     public function makePassive(): self
     {
-        if (false === $this->isPassive())
+        if(false === $this->passive)
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -165,19 +161,11 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @return bool
-     */
-    public function isPassive(): bool
-    {
-        return $this->passive;
-    }
-
-    /**
      * @return $this
      */
     public function makeExclusive(): self
     {
-        if (false === $this->isExclusive())
+        if(false === $this->exclusive)
         {
             $this->exclusive = true;
             $this->flags     += self::AMQP_EXCLUSIVE;
@@ -187,19 +175,11 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @return bool
-     */
-    public function isExclusive(): bool
-    {
-        return $this->exclusive;
-    }
-
-    /**
      * @return $this
      */
     public function makeDurable(): self
     {
-        if (false === $this->isDurable())
+        if(false === $this->durable)
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -209,19 +189,11 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @return bool
-     */
-    public function isDurable(): bool
-    {
-        return $this->durable;
-    }
-
-    /**
      * @return $this
      */
     public function enableAutoDelete(): self
     {
-        if (false === $this->autoDeleteEnabled())
+        if(false === $this->autoDelete)
         {
             $this->autoDelete = true;
             $this->flags      += self::AMQP_AUTO_DELETE;
@@ -230,13 +202,6 @@ final class AmqpQueue implements Queue
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function autoDeleteEnabled(): bool
-    {
-        return $this->autoDelete;
-    }
 
     /**
      * @param array $arguments
@@ -251,7 +216,65 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * Receive queue flags.
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @deprecated Will be removed in the next version (use toString() method)
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function isPassive(): bool
+    {
+        return $this->passive;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function isExclusive(): bool
+    {
+        return $this->exclusive;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function isDurable(): bool
+    {
+        return $this->durable;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function autoDeleteEnabled(): bool
+    {
+        return $this->autoDelete;
+    }
+
+    /**
+     * @deprecated Call the property directly
      *
      * @return int
      */
@@ -261,6 +284,8 @@ final class AmqpQueue implements Queue
     }
 
     /**
+     * @deprecated Call the property directly
+     *
      * @return array
      */
     public function arguments(): array
@@ -271,24 +296,26 @@ final class AmqpQueue implements Queue
     /**
      * @param string $name
      * @param bool   $durable
+     * @param array  $arguments
      *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
      */
-    private function __construct(string $name, bool $durable = false)
+    private function __construct(string $name, bool $durable = false, array $arguments = [])
     {
-        if ('' === $name)
+        if('' === $name)
         {
             throw InvalidQueueName::nameCantBeEmpty();
         }
 
-        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidQueueName::nameIsToLong($name);
         }
 
-        $this->name = $name;
+        $this->arguments = $arguments;
+        $this->name      = $name;
 
-        if (true === $durable)
+        if(true === $durable)
         {
             $this->makeDurable();
         }

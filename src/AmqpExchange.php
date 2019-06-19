@@ -17,6 +17,13 @@ use ServiceBus\Transport\Common\Topic;
 
 /**
  * Exchange details.
+ *
+ * @property-read string $name
+ * @property-read string $type
+ * @property-read bool   $passive
+ * @property-read bool   $durable
+ * @property-read array  $arguments
+ * @property-read int    $flags
  */
 final class AmqpExchange implements Topic
 {
@@ -24,7 +31,7 @@ final class AmqpExchange implements Topic
 
     private const TYPE_DIRECT = 'direct';
 
-    private const TYPE_TOPIC  = 'topic';
+    private const TYPE_TOPIC = 'topic';
 
     private const AMQP_DURABLE = 2;
 
@@ -41,7 +48,7 @@ final class AmqpExchange implements Topic
      *
      * @var string
      */
-    private $name;
+    public $name;
 
     /**
      * Exchange type.
@@ -53,7 +60,7 @@ final class AmqpExchange implements Topic
      *
      * @var string
      */
-    private $type;
+    public $type;
 
     /**
      *  If set, the server will reply with Declare-Ok if the exchange already exists with the same name, and raise an
@@ -68,7 +75,7 @@ final class AmqpExchange implements Topic
      *
      * @var bool
      */
-    private $passive = false;
+    public $passive = false;
 
     /**
      * If set when creating a new exchange, the exchange will be marked as durable. Durable exchanges remain active
@@ -76,23 +83,23 @@ final class AmqpExchange implements Topic
      *
      * @var bool
      */
-    private $durable = false;
+    public $durable = false;
 
     /**
-     * @see https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
+     * @see       https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
      * @psalm-var array<array-key, string|int|float>
      *
      * @var array
      */
-    private $arguments = [];
+    public $arguments = [];
 
     /**
      * Exchange flags.
      *
      * @var int
      */
-    private $flags = 0;
+    public $flags = 0;
 
     /**
      * @param string $name
@@ -142,17 +149,14 @@ final class AmqpExchange implements Topic
      */
     public static function delayed(string $name): self
     {
-        $self = new self($name, self::TYPE_DELAYED, true);
-
-        $self->arguments['x-delayed-type'] = self::TYPE_DIRECT;
-
-        return $self;
+        return new self($name, self::TYPE_DELAYED, true, ['x-delayed-type' => self::TYPE_DIRECT]);
     }
+
 
     /**
      * @return string
      */
-    public function __toString(): string
+    public function toString(): string
     {
         return $this->name;
     }
@@ -162,7 +166,7 @@ final class AmqpExchange implements Topic
      */
     public function makePassive(): self
     {
-        if (false === $this->isPassive())
+        if(false === $this->passive)
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -172,33 +176,17 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @return bool
-     */
-    public function isPassive(): bool
-    {
-        return $this->passive;
-    }
-
-    /**
      * @return $this
      */
     public function makeDurable(): self
     {
-        if (false === $this->isDurable())
+        if(false === $this->durable)
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
         }
 
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDurable(): bool
-    {
-        return $this->durable;
     }
 
     /**
@@ -215,6 +203,38 @@ final class AmqpExchange implements Topic
     }
 
     /**
+     * @deprecated Will be removed in the next version (use toString() method)
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function isPassive(): bool
+    {
+        return $this->passive;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
+     * @return bool
+     */
+    public function isDurable(): bool
+    {
+        return $this->durable;
+    }
+
+    /**
+     * @deprecated Call the property directly
+     *
      * @return string
      */
     public function type(): string
@@ -223,6 +243,8 @@ final class AmqpExchange implements Topic
     }
 
     /**
+     * @deprecated Call the property directly
+     *
      * @return int
      */
     public function flags(): int
@@ -231,6 +253,8 @@ final class AmqpExchange implements Topic
     }
 
     /**
+     * @deprecated Call the property directly
+     *
      * @return array
      */
     public function arguments(): array
@@ -242,25 +266,27 @@ final class AmqpExchange implements Topic
      * @param string $name
      * @param string $type
      * @param bool   $durable
+     * @param array  $arguments
      *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */
-    private function __construct(string $name, string $type, bool $durable)
+    private function __construct(string $name, string $type, bool $durable, array $arguments = [])
     {
-        if ('' === $name)
+        if('' === $name)
         {
             throw InvalidExchangeName::nameCantBeEmpty();
         }
 
-        if (self::MAX_NAME_SYMBOLS < \mb_strlen($name))
+        if(self::MAX_NAME_SYMBOLS < \mb_strlen($name))
         {
             throw InvalidExchangeName::nameIsToLong($name);
         }
 
-        $this->name = $name;
-        $this->type = $type;
+        $this->arguments = $arguments;
+        $this->name      = $name;
+        $this->type      = $type;
 
-        if (true === $durable)
+        if(true === $durable)
         {
             $this->makeDurable();
         }
