@@ -92,4 +92,18 @@ final class AmqpConnectionConfigurationTest extends TestCase
 
         new AmqpConnectionConfiguration('');
     }
+
+    /**
+     * @test
+     *
+     * @throws \Throwable
+     *
+     * @return void
+     */
+    public function virtualHost(): void
+    {
+        $config = new  AmqpConnectionConfiguration('amqp://guest:guest@localhost:5672?vhost=/test//my/vhost///&timeout=1&heartbeat=60.00');
+
+        static::assertSame('/test//my/vhost///', $config->virtualHost());
+    }
 }

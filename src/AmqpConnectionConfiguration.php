@@ -184,9 +184,10 @@ final class AmqpConnectionConfiguration
      */
     private static function extractConnectionParameters(string $connectionDSN): array
     {
+        $connectionParts = self::parseUrl($connectionDSN);
+
         $queryString = (string) ($connectionParts['query'] ?? '');
 
-        $connectionParts = self::parseUrl($connectionDSN);
         $queryParts      = self::parseQuery($queryString);
 
         return [
