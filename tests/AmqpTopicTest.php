@@ -63,7 +63,7 @@ final class AmqpTopicTest extends TestCase
         $exchange = AmqpExchange::fanout('fanoutName');
 
         static::assertSame('fanout', $exchange->type);
-        static::assertSame('fanoutName', (string) $exchange);
+        static::assertSame('fanoutName', $exchange->toString());
     }
 
     /**
@@ -78,7 +78,7 @@ final class AmqpTopicTest extends TestCase
         $exchange = AmqpExchange::direct('directName');
 
         static::assertSame('direct', $exchange->type);
-        static::assertSame('directName', (string) $exchange);
+        static::assertSame('directName', $exchange->toString());
     }
 
     /**
@@ -93,7 +93,7 @@ final class AmqpTopicTest extends TestCase
         $exchange = AmqpExchange::topic('topicName');
 
         static::assertSame('topic', $exchange->type);
-        static::assertSame('topicName', (string) $exchange);
+        static::assertSame('topicName', $exchange->toString());
     }
 
     /**
@@ -108,7 +108,7 @@ final class AmqpTopicTest extends TestCase
         $exchange = AmqpExchange::delayed('delayedName');
 
         static::assertSame('x-delayed-message', $exchange->type);
-        static::assertSame('delayedName', (string) $exchange);
+        static::assertSame('delayedName', $exchange->toString());
 
         static::assertSame(['x-delayed-type' => 'direct'], $exchange->arguments);
     }

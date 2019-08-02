@@ -63,7 +63,7 @@ final class AmqpQueueTest extends TestCase
     {
         $queue = AmqpQueue::default(__METHOD__);
 
-        static::assertSame(__METHOD__, (string) $queue);
+        static::assertSame(__METHOD__, $queue->toString());
 
         static::assertSame(0, $queue->flags);
     }
@@ -79,7 +79,7 @@ final class AmqpQueueTest extends TestCase
     {
         $queue = AmqpQueue::delayed('test', AmqpExchange::direct('qwerty'));
 
-        static::assertSame('test', (string) $queue);
+        static::assertSame('test', $queue->toString());
 
         /** @see AmqpQueue::AMQP_DURABLE */
         static::assertSame(2, $queue->flags);

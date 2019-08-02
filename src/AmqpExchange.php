@@ -202,66 +202,6 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @deprecated Will be removed in the next version (use toString() method)
-     *
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @deprecated Call the property directly
-     *
-     * @return bool
-     */
-    public function isPassive(): bool
-    {
-        return $this->passive;
-    }
-
-    /**
-     * @deprecated Call the property directly
-     *
-     * @return bool
-     */
-    public function isDurable(): bool
-    {
-        return $this->durable;
-    }
-
-    /**
-     * @deprecated Call the property directly
-     *
-     * @return string
-     */
-    public function type(): string
-    {
-        return $this->type;
-    }
-
-    /**
-     * @deprecated Call the property directly
-     *
-     * @return int
-     */
-    public function flags(): int
-    {
-        return $this->flags;
-    }
-
-    /**
-     * @deprecated Call the property directly
-     *
-     * @return array
-     */
-    public function arguments(): array
-    {
-        return $this->arguments;
-    }
-
-    /**
      * @psalm-param array<array-key, string|int|float> $arguments
      *
      * @param string $name
