@@ -25,8 +25,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function createWithEmptyName(): void
     {
@@ -40,8 +38,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function createWithToLongName(): void
     {
@@ -55,8 +51,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function fanoutCreate(): void
     {
@@ -70,8 +64,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function directCreate(): void
     {
@@ -85,8 +77,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function topicCreate(): void
     {
@@ -100,8 +90,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function delayedCreate(): void
     {
@@ -117,8 +105,6 @@ final class AmqpTopicTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function flags(): void
     {

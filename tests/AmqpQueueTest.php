@@ -26,8 +26,6 @@ final class AmqpQueueTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function createWithEmptyName(): void
     {
@@ -41,8 +39,6 @@ final class AmqpQueueTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function createWithToLongName(): void
     {
@@ -56,8 +52,6 @@ final class AmqpQueueTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function defaultCreate(): void
     {
@@ -72,8 +66,6 @@ final class AmqpQueueTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function delayedCreate(): void
     {
@@ -89,8 +81,6 @@ final class AmqpQueueTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function flags(): void
     {

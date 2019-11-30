@@ -15,9 +15,7 @@ namespace ServiceBus\Transport\Amqp;
 /**
  * Quality Of Service settings.
  *
- * @property-read int  $size
- * @property-read int  $count
- * @property-read bool $global
+ * @psalm-readonly
  */
 final class AmqpQoSConfiguration
 {
@@ -38,10 +36,8 @@ final class AmqpQoSConfiguration
      * The server MUST ignore this setting when the client is not processing any messages - i.e. the prefetch size does
      * not limit the transfer of single messages to a client, only the sending in advance of more messages while the
      * client still has one or more unacknowledged messages.
-     *
-     * @var int
      */
-    public $size;
+    public int $size;
 
     /**
      * Specifies a prefetch window in terms of whole messages. This field may be used in combination with the
@@ -50,26 +46,17 @@ final class AmqpQoSConfiguration
      *
      * The server may send less data in advance than allowed by the client's specified prefetch windows but it MUST NOT
      * send more.
-     *
-     * @var int
      */
-    public $count;
+    public int $count;
 
     /**
      * RabbitMQ has reinterpreted this field. The original specification said: "By default the QoS settings apply to
      * the current channel only. If this field is set, they are applied to the entire connection." Instead, RabbitMQ
      * takes global=false to mean that the QoS settings should apply per-consumer (for new consumers on the channel;
      * existing ones being unaffected) and global=true to mean that the QoS settings should apply per-channel.
-     *
-     * @var bool
      */
-    public $global;
+    public bool $global;
 
-    /**
-     * @param int  $size
-     * @param int  $count
-     * @param bool $global
-     */
     public function __construct(?int $size = null, ?int $count = null, ?bool $global = null)
     {
         $size  = $size ?? self::DEFAULT_QOS_PRE_FETCH_SIZE;

@@ -17,19 +17,11 @@ namespace ServiceBus\Transport\Amqp\Exceptions;
  */
 final class InvalidExchangeName extends \InvalidArgumentException
 {
-    /**
-     * @return self
-     */
     public static function nameCantBeEmpty(): self
     {
         return new self('Exchange name must be specified');
     }
 
-    /**
-     * @param string $name
-     *
-     * @return self
-     */
     public static function nameIsToLong(string $name): self
     {
         return new self(

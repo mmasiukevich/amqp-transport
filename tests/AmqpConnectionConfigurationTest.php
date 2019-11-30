@@ -25,8 +25,6 @@ final class AmqpConnectionConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function createLocalhost(): void
     {
@@ -50,8 +48,6 @@ final class AmqpConnectionConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function parseDSN(): void
     {
@@ -67,8 +63,6 @@ final class AmqpConnectionConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function failedQuery(): void
     {
@@ -82,8 +76,6 @@ final class AmqpConnectionConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function emptyDSN(): void
     {
@@ -97,8 +89,6 @@ final class AmqpConnectionConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function virtualHost(): void
     {

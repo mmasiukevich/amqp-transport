@@ -50,10 +50,8 @@ final class AmqpConnectionConfiguration
      *    timeout:float,
      *    heartbeat:float
      * }
-     *
-     * @var array
      */
-    private $data;
+    private array $data;
 
     /**
      * @param string $connectionDSN DSN example: amqp://user:password@host:port
@@ -65,20 +63,11 @@ final class AmqpConnectionConfiguration
         $this->data = self::extractConnectionParameters($connectionDSN);
     }
 
-    /**
-     * @noinspection PhpDocMissingThrowsInspection
-     *
-     * @return self
-     */
     public static function createLocalhost(): self
     {
-        /** @noinspection PhpUnhandledExceptionInspection */
         return new self('amqp://guest:guest@localhost:5672');
     }
 
-    /**
-     * @return string
-     */
     public function __toString(): string
     {
         return \sprintf(
@@ -96,8 +85,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive connection timeout.
-     *
-     * @return float
      */
     public function timeout(): float
     {
@@ -106,8 +93,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive heartbeat interval.
-     *
-     * @return float
      */
     public function heartbeatInterval(): float
     {
@@ -116,8 +101,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Get virtual host path.
-     *
-     * @return string
      */
     public function virtualHost(): string
     {
@@ -126,8 +109,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive connection username.
-     *
-     * @return string
      */
     public function user(): string
     {
@@ -136,8 +117,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive connection password.
-     *
-     * @return string
      */
     public function password(): string
     {
@@ -146,8 +125,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive connection host.
-     *
-     * @return string
      */
     public function host(): string
     {
@@ -156,8 +133,6 @@ final class AmqpConnectionConfiguration
 
     /**
      * Receive connection port.
-     *
-     * @return int
      */
     public function port(): int
     {
@@ -165,8 +140,6 @@ final class AmqpConnectionConfiguration
     }
 
     /**
-     * @param string $connectionDSN
-     *
      * @psalm-return array{
      *   scheme:string,
      *   user:string,
@@ -179,8 +152,6 @@ final class AmqpConnectionConfiguration
      * }
      *
      * @throws \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters Incorrect DSN
-     *
-     * @return array
      */
     private static function extractConnectionParameters(string $connectionDSN): array
     {
@@ -205,11 +176,7 @@ final class AmqpConnectionConfiguration
     /**
      * Parse connection DSN parts.
      *
-     * @param string $url
-     *
      * @throws \ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters Incorrect DSN
-     *
-     * @return array
      */
     private static function parseUrl(string $url): array
     {
@@ -231,11 +198,7 @@ final class AmqpConnectionConfiguration
     /**
      * Parse url query parts.
      *
-     * @param string $query
-     *
      * @psalm-return array<string, string|int|float>
-     *
-     * @return array
      */
     private static function parseQuery(string $query): array
     {

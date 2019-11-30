@@ -18,13 +18,7 @@ use ServiceBus\Transport\Common\Queue;
 /**
  * Queue details.
  *
- * @property-read string $name
- * @property-read bool   $passive
- * @property-read bool   $durable
- * @property-read bool   $exclusive
- * @property-read bool   $autoDelete
- * @property-read array  $arguments
- * @property-read int    $flags
+ * @psalm-readonly
  */
 final class AmqpQueue implements Queue
 {
@@ -44,10 +38,8 @@ final class AmqpQueue implements Queue
      * pre-declared and standardised queues. The client MAY declare a queue starting with "amq." if the passive option
      * is set, or the queue already exists. Error code: access-refused The queue name can be empty, or a sequence of
      * these characters: letters, digits, hyphen, underscore, period, or colon.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * If set, the server will reply with Declare-Ok if the queue already exists with the same name, and raise an
@@ -61,10 +53,8 @@ final class AmqpQueue implements Queue
      * If not set and the queue exists, the server MUST check that the existing queue has the same values for durable,
      * exclusive, auto-delete, and arguments fields. The server MUST respond with Declare-Ok if the requested queue
      * matches these fields, and MUST raise a channel exception if not
-     *
-     * @var bool
      */
-    public $passive = false;
+    public bool $passive = false;
 
     /**
      * If set when creating a new queue, the queue will be marked as durable. Durable queues remain active when a
@@ -74,10 +64,8 @@ final class AmqpQueue implements Queue
      *
      * The server MUST recreate the durable queue after a restart.
      * The server MUST support both durable and transient queues.
-     *
-     * @var bool
      */
-    public $durable = false;
+    public bool $durable = false;
 
     /**
      * Exclusive queues may only be accessed by the current connection, and are deleted when that connection closes.
@@ -86,10 +74,8 @@ final class AmqpQueue implements Queue
      * The server MUST support both exclusive (private) and non-exclusive (shared) queues.
      * The client MAY NOT attempt to use a queue that was declared as exclusive by another still-open connection. Error
      * code
-     *
-     * @var bool
      */
-    public $exclusive = false;
+    public bool $exclusive = false;
 
     /**
      * If set, the queue is deleted when all consumers have finished using it. The last consumer can be cancelled
@@ -97,32 +83,21 @@ final class AmqpQueue implements Queue
      * deleted. Applications can explicitly delete auto-delete queues using the Delete method as normal.
      *
      * The server MUST ignore the auto-delete field if the queue already exists.
-     *
-     * @var bool
      */
-    public $autoDelete = false;
+    public bool $autoDelete = false;
 
     /**
      * @see http://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
-     *
-     * @var array
      */
-    public $arguments = [];
+    public array $arguments = [];
 
     /**
      * Queue flags.
-     *
-     * @var int
      */
-    public $flags = 0;
+    public int $flags = 0;
 
     /**
-     * @param string $name
-     * @param bool   $durable
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
-     *
-     * @return self
      */
     public static function default(string $name, bool $durable = false): self
     {
@@ -134,21 +109,13 @@ final class AmqpQueue implements Queue
      *
      * @see https://github.com/rabbitmq/rabbitmq-delayed-message-exchange
      *
-     * @param string       $name
-     * @param AmqpExchange $toExchange
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
-     *
-     * @return self
      */
     public static function delayed(string $name, AmqpExchange $toExchange): self
     {
         return new self($name, true, ['x-dead-letter-exchange' => $toExchange->name]);
     }
 
-    /**
-     * @return $this
-     */
     public function makePassive(): self
     {
         if (false === $this->passive)
@@ -160,9 +127,6 @@ final class AmqpQueue implements Queue
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function makeExclusive(): self
     {
         if (false === $this->exclusive)
@@ -174,9 +138,6 @@ final class AmqpQueue implements Queue
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function makeDurable(): self
     {
         if (false === $this->durable)
@@ -188,9 +149,6 @@ final class AmqpQueue implements Queue
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function enableAutoDelete(): self
     {
         if (false === $this->autoDelete)
@@ -202,11 +160,6 @@ final class AmqpQueue implements Queue
         return $this;
     }
 
-    /**
-     * @param array $arguments
-     *
-     * @return $this
-     */
     public function wthArguments(array $arguments): self
     {
         $this->arguments = \array_merge($this->arguments, $arguments);
@@ -215,7 +168,7 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function toString(): string
     {
@@ -223,10 +176,6 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @param string $name
-     * @param bool   $durable
-     * @param array  $arguments
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidQueueName
      */
     private function __construct(string $name, bool $durable = false, array $arguments = [])

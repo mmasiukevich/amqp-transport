@@ -25,8 +25,6 @@ final class AmqpTransportLevelDestinationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function withEmptyExchangeName(): void
     {
@@ -40,8 +38,6 @@ final class AmqpTransportLevelDestinationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function successCreate(): void
     {

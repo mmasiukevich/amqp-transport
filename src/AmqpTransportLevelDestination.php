@@ -18,25 +18,15 @@ use ServiceBus\Transport\Common\DeliveryDestination;
 /**
  * Which exchange (and with which key) the message will be sent to.
  *
- * @property-read string      $exchange
- * @property-read string|null $routingKey
+ * @psalm-readonly
  */
 final class AmqpTransportLevelDestination implements DeliveryDestination
 {
-    /**
-     * @var string
-     */
-    public $exchange;
+    public string $exchange;
+
+    public ?string $routingKey;
 
     /**
-     * @var string|null
-     */
-    public $routingKey;
-
-    /**
-     * @param string      $exchange
-     * @param string|null $routingKey
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\IncorrectDestinationExchange
      */
     public function __construct(string $exchange, ?string $routingKey = null)

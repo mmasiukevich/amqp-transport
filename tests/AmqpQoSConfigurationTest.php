@@ -24,8 +24,6 @@ final class AmqpQoSConfigurationTest extends TestCase
      * @test
      *
      * @throws \Throwable
-     *
-     * @return void
      */
     public function successCreate(): void
     {

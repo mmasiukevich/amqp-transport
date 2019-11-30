@@ -18,12 +18,7 @@ use ServiceBus\Transport\Common\Topic;
 /**
  * Exchange details.
  *
- * @property-read string $name
- * @property-read string $type
- * @property-read bool   $passive
- * @property-read bool   $durable
- * @property-read array  $arguments
- * @property-read int    $flags
+ * @psalm-readonly
  */
 final class AmqpExchange implements Topic
 {
@@ -45,10 +40,8 @@ final class AmqpExchange implements Topic
     /**
      * The exchange name consists of a non-empty sequence of these characters: letters, digits, hyphen, underscore,
      * period, or colon.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Exchange type.
@@ -57,10 +50,8 @@ final class AmqpExchange implements Topic
      * - direct
      * - topic
      * - x-delayed-message
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      *  If set, the server will reply with Declare-Ok if the exchange already exists with the same name, and raise an
@@ -72,42 +63,29 @@ final class AmqpExchange implements Topic
      * (not found). If not set and the exchange exists, the server MUST check that the existing exchange has the same
      * values for type, durable, and arguments fields. The server MUST respond with Declare-Ok if the requested
      * exchange matches these fields, and MUST raise a channel exception if not.
-     *
-     * @var bool
      */
-    public $passive = false;
+    public bool $passive = false;
 
     /**
      * If set when creating a new exchange, the exchange will be marked as durable. Durable exchanges remain active
      * when a server restarts. Non-durable exchanges (transient exchanges) are purged if/when a server restarts.
-     *
-     * @var bool
      */
-    public $durable = false;
+    public bool $durable = false;
 
     /**
      * @see       https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
      * @psalm-var array<array-key, string|int|float>
-     *
-     * @var array
      */
-    public $arguments = [];
+    public array $arguments = [];
 
     /**
      * Exchange flags.
-     *
-     * @var int
      */
-    public $flags = 0;
+    public int $flags = 0;
 
     /**
-     * @param string $name
-     * @param bool   $durable
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
-     *
-     * @return self
      */
     public static function fanout(string $name, bool $durable = false): self
     {
@@ -115,12 +93,7 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @param string $name
-     * @param bool   $durable
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
-     *
-     * @return self
      */
     public static function direct(string $name, bool $durable = false): self
     {
@@ -128,12 +101,7 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @param string $name
-     * @param bool   $durable
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
-     *
-     * @return self
      */
     public static function topic(string $name, bool $durable = false): self
     {
@@ -141,11 +109,7 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @param string $name
-     *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
-     *
-     * @return self
      */
     public static function delayed(string $name): self
     {
@@ -153,16 +117,13 @@ final class AmqpExchange implements Topic
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function toString(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return $this
-     */
     public function makePassive(): self
     {
         if (false === $this->passive)
@@ -174,9 +135,6 @@ final class AmqpExchange implements Topic
         return $this;
     }
 
-    /**
-     * @return $this
-     */
     public function makeDurable(): self
     {
         if (false === $this->durable)
@@ -188,11 +146,6 @@ final class AmqpExchange implements Topic
         return $this;
     }
 
-    /**
-     * @param array $arguments
-     *
-     * @return $this
-     */
     public function wthArguments(array $arguments): self
     {
         /** @psalm-suppress MixedTypeCoercion */
@@ -203,11 +156,6 @@ final class AmqpExchange implements Topic
 
     /**
      * @psalm-param array<array-key, string|int|float> $arguments
-     *
-     * @param string $name
-     * @param string $type
-     * @param bool   $durable
-     * @param array  $arguments
      *
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
      */

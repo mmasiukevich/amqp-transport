@@ -17,9 +17,6 @@ namespace ServiceBus\Transport\Amqp\Exceptions;
  */
 final class IncorrectDestinationExchange extends \InvalidArgumentException
 {
-    /**
-     * @return self
-     */
     public static function destinationExchangeCantBeEmpty(): self
     {
         return new self('Destination exchange name must be specified');
