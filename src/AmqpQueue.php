@@ -89,7 +89,9 @@ final class AmqpQueue implements Queue
     /**
      * @see http://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      */
-    public array $arguments = [];
+    public array
+
+ $arguments = [];
 
     /**
      * Queue flags.
@@ -168,7 +170,7 @@ final class AmqpQueue implements Queue
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function toString(): string
     {

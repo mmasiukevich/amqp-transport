@@ -51,7 +51,9 @@ final class AmqpConnectionConfiguration
      *    heartbeat:float
      * }
      */
-    private array $data;
+    private array
+
+ $data;
 
     /**
      * @param string $connectionDSN DSN example: amqp://user:password@host:port
