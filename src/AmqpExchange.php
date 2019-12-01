@@ -77,9 +77,7 @@ final class AmqpExchange implements Topic
      *
      * @psalm-var array<array-key, string|int|float>
      */
-    public array
-
- $arguments = [];
+    public array $arguments = [];
 
     /**
      * Exchange flags.
