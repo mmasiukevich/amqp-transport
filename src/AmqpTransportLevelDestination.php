@@ -22,16 +22,18 @@ use ServiceBus\Transport\Common\DeliveryDestination;
  */
 final class AmqpTransportLevelDestination implements DeliveryDestination
 {
-    public string $exchange;
+    /** @var string */
+    public $exchange;
 
-    public ?string $routingKey;
+    /** @var string|null */
+    public $routingKey;
 
     /**
      * @throws \ServiceBus\Transport\Amqp\Exceptions\IncorrectDestinationExchange
      */
     public function __construct(string $exchange, ?string $routingKey = null)
     {
-        if ('' === $exchange)
+        if ($exchange === '')
         {
             throw IncorrectDestinationExchange::destinationExchangeCantBeEmpty();
         }

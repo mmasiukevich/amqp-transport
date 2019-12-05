@@ -40,8 +40,10 @@ final class AmqpExchange implements Topic
     /**
      * The exchange name consists of a non-empty sequence of these characters: letters, digits, hyphen, underscore,
      * period, or colon.
+     *
+     * @var string
      */
-    public string $name;
+    public $name;
 
     /**
      * Exchange type.
@@ -50,8 +52,10 @@ final class AmqpExchange implements Topic
      * - direct
      * - topic
      * - x-delayed-message
+     *
+     * @var string
      */
-    public string $type;
+    public $type;
 
     /**
      *  If set, the server will reply with Declare-Ok if the exchange already exists with the same name, and raise an
@@ -63,26 +67,34 @@ final class AmqpExchange implements Topic
      * (not found). If not set and the exchange exists, the server MUST check that the existing exchange has the same
      * values for type, durable, and arguments fields. The server MUST respond with Declare-Ok if the requested
      * exchange matches these fields, and MUST raise a channel exception if not.
+     *
+     * @var bool
      */
-    public bool $passive = false;
+    public $passive = false;
 
     /**
      * If set when creating a new exchange, the exchange will be marked as durable. Durable exchanges remain active
      * when a server restarts. Non-durable exchanges (transient exchanges) are purged if/when a server restarts.
+     *
+     * @var bool
      */
-    public bool $durable = false;
+    public $durable = false;
 
     /**
      * @see       https://www.rabbitmq.com/amqp-0-9-1-reference.html#domain.table
      *
      * @psalm-var array<array-key, string|int|float>
+     *
+     * @var array
      */
-    public array $arguments = [];
+    public $arguments = [];
 
     /**
      * Exchange flags.
+     *
+     * @var int
      */
-    public int $flags = 0;
+    public $flags = 0;
 
     /**
      * @throws \ServiceBus\Transport\Amqp\Exceptions\InvalidExchangeName
@@ -126,7 +138,7 @@ final class AmqpExchange implements Topic
 
     public function makePassive(): self
     {
-        if (false === $this->passive)
+        if ($this->passive === false)
         {
             $this->passive = true;
             $this->flags   += self::AMQP_PASSIVE;
@@ -137,7 +149,7 @@ final class AmqpExchange implements Topic
 
     public function makeDurable(): self
     {
-        if (false === $this->durable)
+        if ($this->durable === false)
         {
             $this->durable = true;
             $this->flags   += self::AMQP_DURABLE;
@@ -161,7 +173,7 @@ final class AmqpExchange implements Topic
      */
     private function __construct(string $name, string $type, bool $durable, array $arguments = [])
     {
-        if ('' === $name)
+        if ($name === '')
         {
             throw InvalidExchangeName::nameCantBeEmpty();
         }
@@ -175,7 +187,7 @@ final class AmqpExchange implements Topic
         $this->name      = $name;
         $this->type      = $type;
 
-        if (true === $durable)
+        if ($durable === true)
         {
             $this->makeDurable();
         }

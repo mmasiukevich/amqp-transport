@@ -19,21 +19,21 @@ use ServiceBus\Transport\Common\Exceptions\InvalidConnectionParameters;
  */
 final class AmqpConnectionConfiguration
 {
-    private const DEFAULT_SCHEMA             = 'amqp';
+    private const DEFAULT_SCHEMA = 'amqp';
 
-    private const DEFAULT_HOST               = 'localhost';
+    private const DEFAULT_HOST = 'localhost';
 
-    private const DEFAULT_PORT               = 5672;
+    private const DEFAULT_PORT = 5672;
 
-    private const DEFAULT_USERNAME           = 'guest';
+    private const DEFAULT_USERNAME = 'guest';
 
-    private const DEFAULT_PASSWORD           = 'guest';
+    private const DEFAULT_PASSWORD = 'guest';
 
-    private const DEFAULT_TIMEOUT            = 1;
+    private const DEFAULT_TIMEOUT = 1;
 
     private const DEFAULT_HEARTBEAT_INTERVAL = 60.0;
 
-    private const DEFAULT_VIRTUAL_HOST       = '/';
+    private const DEFAULT_VIRTUAL_HOST = '/';
 
     /**
      * Connection DSN parameters bag.
@@ -50,8 +50,10 @@ final class AmqpConnectionConfiguration
      *    timeout:float,
      *    heartbeat:float
      * }
+     *
+     * @var array
      */
-    private array $data;
+    private $data;
 
     /**
      * @param string $connectionDSN DSN example: amqp://user:password@host:port
@@ -159,7 +161,7 @@ final class AmqpConnectionConfiguration
 
         $queryString = (string) ($connectionParts['query'] ?? '');
 
-        $queryParts      = self::parseQuery($queryString);
+        $queryParts = self::parseQuery($queryString);
 
         return [
             'scheme'    => (string) ($connectionParts['scheme'] ?? self::DEFAULT_SCHEMA),
@@ -180,7 +182,7 @@ final class AmqpConnectionConfiguration
      */
     private static function parseUrl(string $url): array
     {
-        if ('' === $url)
+        if ($url === '')
         {
             throw InvalidConnectionParameters::emptyDSN();
         }
